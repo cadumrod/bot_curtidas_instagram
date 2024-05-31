@@ -60,7 +60,7 @@ btn_entrar.click()
 sleep(3)
 
 # Navegar até a página alvo
-driver.get('https://www.instagram.com/cadu.mrod')
+driver.get('https://www.instagram.com/')
 
 # Clicar na última postagem
 postagens = wait.until(expected_conditions.visibility_of_any_elements_located((By.XPATH, "//div[@class='_aagw']")))
