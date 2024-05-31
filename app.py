@@ -45,12 +45,12 @@ driver.get('https://www.instagram.com/')
 
 # Clicar e digitar meu usuário
 campo_usuario = wait.until(expected_conditions.element_to_be_clickable((By.XPATH, "//input[@name='username']")))
-campo_usuario.send_keys('cadu.mrod@gmail.com')
+campo_usuario.send_keys('e-mail@email.com')
 sleep(random.randint(1,2))
 
 # Clicar e digitar a senha
 campo_senha = wait.until(expected_conditions.element_to_be_clickable((By.XPATH, "//input[@name='password']")))
-campo_senha.send_keys('2650Duka2299!@')
+campo_senha.send_keys('password123')
 sleep(random.randint(1,2))
 
 # Clicar no campo entrar
@@ -69,19 +69,22 @@ postagens[0].click()
 sleep(random.randint(1,2))
 
 # Verificar se está curtido ou não e realizar ação
-btn_coracao = driver.find_element(By.XPATH, "//span[@class='x1rg5ohu xp7jhwk']/div/div/span")
-
-if btn_coracao.find_element(By.TAG_NAME, 'svg').get_attribute('class') == 'x1lliihq x1n2onr6 xyb1xck':
-    print(btn_coracao)
-    btn_coracao.click()
-
-else:
-    print('Essa postagem já foi curtida.')
-
-
-
-
-input('')
-driver.close()
+while True:
+    postagem = wait.until(expected_conditions.visibility_of_any_elements_located((
+        By.XPATH, '//div[@class="_aagw"]')))
+    postagem[0].click()
+    sleep(5)
+    try:
+        verifica_curtida = driver.find_element(By.XPATH,
+                                               '/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/section[1]//div[@role="button"]//*[@aria-label="Curtir"]')
+    except:
+        print('A imagem já havia sido curtida.')
+    else:
+        botao_curtir = driver.find_elements(By.XPATH,
+                                            '/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/section[1]//div[@role="button"]')
+        sleep(5)
+        driver.execute_script('arguments[0].click()', botao_curtir[0])
+        print('Deu certo! A imagem acabou de ser curtida.')
+    sleep(86400)
 
 
